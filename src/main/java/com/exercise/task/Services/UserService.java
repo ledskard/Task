@@ -19,8 +19,6 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	
-	
 	// GET
 	public Usuario searchById(Long id) {
 		Optional<Usuario> buscaPorId = userRepository.findById(id);

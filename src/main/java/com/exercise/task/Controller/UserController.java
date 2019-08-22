@@ -23,19 +23,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
 	@GetMapping("user/{id}")
 	public ResponseEntity<Usuario> getById(@PathVariable("id")Long id){
 		Usuario buscaPorId = userService.searchById(id);
 		return ResponseEntity.ok(buscaPorId);
 	}
-	
 	@GetMapping("user")
 	public ResponseEntity<List<Usuario>> getAll(){
 		List<Usuario> buscarTodos = userService.searchAll();
 		return ResponseEntity.ok(buscarTodos);
 	}
-	
 	@GetMapping("user/{usuario}")
 	public ResponseEntity<Usuario> getByUser(String usuario){ 
 		Usuario buscaUsuario = userService.searchByUser(usuario);
@@ -44,7 +41,7 @@ public class UserController {
 	@PostMapping("/user")
 	public ResponseEntity<String> addUser(@RequestBody Usuario usuario){
 		userService.saveUser(usuario);
-		return ResponseEntity.status(HttpStatus.CREATED).body("CRIADO");
+		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("CRIADO");
 	}
 	@PutMapping("/user/{usuario}")
 	public ResponseEntity<String> updateUser(@RequestBody Usuario newUsuario, @PathVariable("usuario") String usuario){
@@ -60,6 +57,5 @@ public class UserController {
 	public ResponseEntity<String> deleteByUser(@PathVariable("usuario") String usuario) {
 		userService.DeleteByUser(usuario);
 		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("DELETADO");
-	}
-	
+	}	
 }

@@ -1,25 +1,26 @@
 package com.exercise.task.Models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
+import javax.persistence.Table;
+import static javax.persistence.GenerationType.IDENTITY;
 import org.springframework.data.annotation.Id;
 
 @Entity
+@Table(name = "Usuario")
 public class Usuario {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
-	
+	@Column
 	private String nome;
-	
+	@Column
 	private String	sobrenome;
-	
+	@Column
 	private String endereco;
-	
 	
 	public Long getId() {
 		return id;
