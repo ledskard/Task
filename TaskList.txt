@@ -1,0 +1,18 @@
+usuario tem:
+
+ID
+Nome,
+Sobrenome,
+Endereço (outra classe)
+
+
+task tem
+
+ID,
+Usuario
+Descricao
+Status
+
+
+
+
