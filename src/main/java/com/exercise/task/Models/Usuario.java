@@ -1,16 +1,17 @@
 package com.exercise.task.Models;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
-import static javax.persistence.GenerationType.IDENTITY;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
-@Entity
-@Table(name = "Usuario")
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Entity	
 public class Usuario {
-	
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -19,12 +20,33 @@ public class Usuario {
 	private String nome;
 	@Column
 	private String	sobrenome;
-	@Column
+	@Embedded
 	private String endereco;
+
+	public Usuario(String nome, String sobrenome, String cep, String cidade, String bairro, String logradouro) {
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.cep = cep;
+		this.cidade = cidade;
+		this.bairro = bairro;
+		this.logradouro = logradouro;
+	}
+	@JsonProperty("cep")
+	private String cep;
+	
+	@JsonProperty("cidade")
+	private String cidade;
+	
+	@JsonProperty("bairro")
+	private String bairro;
+	
+	@JsonProperty("logradouro")
+	private String logradouro;
 	
 	public Long getId() {
 		return id;
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}

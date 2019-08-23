@@ -15,31 +15,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exercise.task.Models.Usuario;
 import com.exercise.task.Services.UserService;
+import com.exercise.task.dto.UserDTO;
 
 @RestController
 public class UserController {
 	
-	
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("user/{id}")
-	public ResponseEntity<Usuario> getById(@PathVariable("id")Long id){
+	@GetMapping("/user/{id}")
+	public ResponseEntity<Usuario> getById(@PathVariable("id") Long id){
 		Usuario buscaPorId = userService.searchById(id);
 		return ResponseEntity.ok(buscaPorId);
 	}
-	@GetMapping("user")
+	@GetMapping("/user")
 	public ResponseEntity<List<Usuario>> getAll(){
 		List<Usuario> buscarTodos = userService.searchAll();
 		return ResponseEntity.ok(buscarTodos);
 	}
-	@GetMapping("user/{usuario}")
-	public ResponseEntity<Usuario> getByUser(String usuario){ 
-		Usuario buscaUsuario = userService.searchByUser(usuario);
-		return ResponseEntity.ok(buscaUsuario);
+	@GetMapping("/user/suicidio/{nome}")
+	public ResponseEntity<Usuario> getByName(@PathVariable("nome")String nome){ 
+		Usuario buscaUsuario = userService.searchByName(nome);
+		return buscaUsuario != null ? ResponseEntity.ok(buscaUsuario) : ResponseEntity.notFound().build(); 
 	}
 	@PostMapping("/user")
-	public ResponseEntity<String> addUser(@RequestBody Usuario usuario){
+	public ResponseEntity<String> addUser(@RequestBody UserDTO usuario){
 		userService.saveUser(usuario);
 		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("CRIADO");
 	}
@@ -53,9 +53,5 @@ public class UserController {
 		userService.deleteById(id);
 		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("DELETADO");
 	}
-	@DeleteMapping("/user/{usuario}")
-	public ResponseEntity<String> deleteByUser(@PathVariable("usuario") String usuario) {
-		userService.DeleteByUser(usuario);
-		return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("DELETADO");
-	}	
+	
 }

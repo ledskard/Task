@@ -1,3 +1,4 @@
+
 package com.exercise.task.Services;
 
 import java.util.List;
@@ -7,10 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.exercise.task.Feign.FeignConfiguration;
 import com.exercise.task.Models.Usuario;
 import com.exercise.task.Repository.UserRepository;
-
-
+import com.exercise.task.dto.UserDTO;
+import com.exercise.task.dto.response.CepResponse;
 
 @Service
 public class UserService {
@@ -19,6 +21,10 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private FeignConfiguration feignConfiguration;
+	
+	
 	// GET
 	public Usuario searchById(Long id) {
 		Optional<Usuario> buscaPorId = userRepository.findById(id);
@@ -30,26 +36,24 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	//GET
-	public Usuario searchByUser(String usuario) {
-		Optional<Usuario> buscaPorUsuario = userRepository.findByUser(usuario);
+	public Usuario searchByName(String nome) {
+		Optional<Usuario> buscaPorUsuario = userRepository.findByNome(nome);
 		return buscaPorUsuario.get();	
 	}
 	//POST
-	public void saveUser(Usuario usuario) {
-		userRepository.save(usuario);
+	public void saveUser(UserDTO usuario) {
+		CepResponse cepBody = feignConfiguration.validaCep(usuario.getCep());
+		Usuario newDrugUsuario = new Usuario(usuario.getNome(), usuario.getSobrenome(), cepBody.getCep(), cepBody.getBairro(), cepBody.getLogradouro(), cepBody.getLocalidade());
+		userRepository.save(newDrugUsuario);
 	}
 	//PUT
-	public void updateUser(String usuario, Usuario newUsuario) {
-		Usuario savedUser = userRepository.findByUser(usuario).get();
-		BeanUtils.copyProperties(newUsuario, savedUser, "id");
-		userRepository.save(savedUser);
+	public void updateUser(String nome, Usuario newNome) {
+		Usuario savedNome = userRepository.findByNome(nome).get();
+		BeanUtils.copyProperties(newNome, savedNome, "id");
+		userRepository.save(savedNome);
 	}
 	//delete
 	public void deleteById(Long id) {
 		userRepository.deleteById(id);
-	}
-	//delete
-	public void DeleteByUser(String usuario) {
-		userRepository.deleteByUser(usuario);
 	}
 }
