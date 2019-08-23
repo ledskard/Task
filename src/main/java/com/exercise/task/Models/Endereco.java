@@ -1,21 +1,17 @@
 package com.exercise.task.Models;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Embeddable
 public class Endereco {
-	@Column(name= "cep", updatable = false, insertable = false)
 	@JsonProperty("cep")
 	private String cep;
-	@Column(name= "cidade", updatable = false, insertable = false)
 	@JsonProperty("cidade")
 	private String cidade;
-	@Column(name= "bairro", updatable = false, insertable = false)
 	@JsonProperty("bairro")
 	private String bairro;
-	@Column(name= "logradouro", updatable = false, insertable = false)
 	@JsonProperty("logradouro")
 	private String logradouro;
 	

@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Entity	
 public class Usuario {
 	
@@ -20,28 +18,19 @@ public class Usuario {
 	private String nome;
 	@Column
 	private String	sobrenome;
+	
 	@Embedded
-	private String endereco;
+	private Endereco endereco;
 
 	public Usuario(String nome, String sobrenome, String cep, String cidade, String bairro, String logradouro) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
-		this.cep = cep;
-		this.cidade = cidade;
-		this.bairro = bairro;
-		this.logradouro = logradouro;
+		this.endereco = new Endereco();
+		this.endereco.setCep(cep);
+		this.endereco.setCidade(cidade);
+		this.endereco.setBairro(bairro);
+		this.endereco.setLogradouro(logradouro);
 	}
-	@JsonProperty("cep")
-	private String cep;
-	
-	@JsonProperty("cidade")
-	private String cidade;
-	
-	@JsonProperty("bairro")
-	private String bairro;
-	
-	@JsonProperty("logradouro")
-	private String logradouro;
 	
 	public Long getId() {
 		return id;
@@ -62,10 +51,5 @@ public class Usuario {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+
 }

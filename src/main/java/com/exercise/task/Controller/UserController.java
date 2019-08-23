@@ -33,7 +33,7 @@ public class UserController {
 		List<Usuario> buscarTodos = userService.searchAll();
 		return ResponseEntity.ok(buscarTodos);
 	}
-	@GetMapping("/user/suicidio/{nome}")
+	@GetMapping("/user/buscanome/{nome}")
 	public ResponseEntity<Usuario> getByName(@PathVariable("nome")String nome){ 
 		Usuario buscaUsuario = userService.searchByName(nome);
 		return buscaUsuario != null ? ResponseEntity.ok(buscaUsuario) : ResponseEntity.notFound().build(); 
