@@ -38,7 +38,7 @@ public class CepResponse {
 	public String getLocalidade() {
 		return localidade;
 	}
-	public void setLocalidade(String localidade) {
+	public void getLocalidade(String localidade) {
 		this.localidade = localidade;
 	}
 	public String getUf() {

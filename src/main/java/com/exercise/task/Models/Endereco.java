@@ -2,20 +2,16 @@ package com.exercise.task.Models;
 
 import javax.persistence.Embeddable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Embeddable
 public class Endereco {
-	@JsonProperty("cep")
-	private String cep;
-	@JsonProperty("cidade")
-	private String cidade;
-	@JsonProperty("bairro")
-	private String bairro;
-	@JsonProperty("logradouro")
-	private String logradouro;
 	
-
+	private String cep;
+	
+	private String localidade;
+	
+	private String bairro;
+	
+	private String logradouro;
 	
 	public String getCep() {
 		return cep;
@@ -23,11 +19,11 @@ public class Endereco {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 	public String getBairro() {
 		return bairro;

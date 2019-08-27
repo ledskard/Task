@@ -29,11 +29,10 @@ public class UserService {
 	public Usuario searchById(Long id) {
 		Optional<Usuario> buscaPorId = userRepository.findById(id);
 		return buscaPorId.get();
-		
 	}
 	//GET
 	public List<Usuario> searchAll() {
-		return userRepository.findAll();
+		return userRepository.findAll();	
 	}
 	//GET
 	public Usuario searchByName(String nome) {
@@ -42,9 +41,9 @@ public class UserService {
 	}
 	//POST
 	public void saveUser(UserDTO usuario) {
-		CepResponse cepBody = feignConfiguration.validaCep(usuario.getCep());
-		Usuario newDrugUsuario = new Usuario(usuario.getNome(), usuario.getSobrenome(), cepBody.getCep(), cepBody.getBairro(), cepBody.getLogradouro(), cepBody.getLocalidade());
-		userRepository.save(newDrugUsuario);
+		CepResponse getCep = feignConfiguration.validaCep(usuario.getCep());
+		Usuario newUsuario = new Usuario(usuario.getNome(), usuario.getSobrenome(), getCep.getCep(), getCep.getLocalidade(), getCep.getBairro(), getCep.getLogradouro());
+		userRepository.save(newUsuario);
 	}
 	//PUT
 	public void updateUser(String nome, Usuario newNome) {

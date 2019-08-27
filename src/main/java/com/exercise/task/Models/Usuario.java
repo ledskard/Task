@@ -7,8 +7,12 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+
 
 @Entity	
+@Table(name = "usuario")
 public class Usuario {
 	
 	@Id
@@ -17,19 +21,21 @@ public class Usuario {
 	@Column
 	private String nome;
 	@Column
-	private String	sobrenome;
-	
+	private String sobrenome;
 	@Embedded
 	private Endereco endereco;
 
-	public Usuario(String nome, String sobrenome, String cep, String cidade, String bairro, String logradouro) {
+	public Usuario(String nome, String sobrenome, String cep, String localidade, String bairro, String logradouro) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.endereco = new Endereco();
 		this.endereco.setCep(cep);
-		this.endereco.setCidade(cidade);
+		this.endereco.setLocalidade(localidade);
 		this.endereco.setBairro(bairro);
 		this.endereco.setLogradouro(logradouro);
+	}
+	public Usuario() {
+		
 	}
 	
 	public Long getId() {
@@ -51,5 +57,10 @@ public class Usuario {
 	public void setSobrenome(String sobrenome) {
 		this.sobrenome = sobrenome;
 	}
-
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 }

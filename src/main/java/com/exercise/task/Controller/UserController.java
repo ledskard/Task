@@ -36,7 +36,7 @@ public class UserController {
 	@GetMapping("/user/buscanome/{nome}")
 	public ResponseEntity<Usuario> getByName(@PathVariable("nome")String nome){ 
 		Usuario buscaUsuario = userService.searchByName(nome);
-		return buscaUsuario != null ? ResponseEntity.ok(buscaUsuario) : ResponseEntity.notFound().build(); 
+		return ResponseEntity.ok(buscaUsuario);
 	}
 	@PostMapping("/user")
 	public ResponseEntity<String> addUser(@RequestBody UserDTO usuario){
